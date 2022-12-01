@@ -23,8 +23,9 @@ namespace StringDatabase {
 		void (*original)(void* _this, System_String isoCode, void* MethodInfo);
 		void hook(void* _this, System_String isoCode, void* MethodInfo) {
 			const char16_t* language = u"pl-PL";
+			
 			isoCode.string_size = Unicode::length(language);
-			Unicode::copy(isoCode.lang_string, u"pl-PL", Unicode::length(u"pl-PL") + 1);
+			Unicode::copy(isoCode.lang_string, language, Unicode::length(language) + 1);
 			return original(_this, isoCode, MethodInfo);
 		}
 
@@ -34,7 +35,7 @@ namespace StringDatabase {
 void SAS_main()
 {
 	TextRegionOffset = (uintptr_t)skyline::utils::getRegionAddress(skyline::utils::region::Text);
-	
+
 	//Offset recovered with il2cppdumper, named as StringDatabase$$SetCurrentLanguage
 	A64HookFunction((void*)(TextRegionOffset + 0x1BC110), reinterpret_cast<void*>(StringDatabase::SetCurrentLanguage::hook), (void**)&StringDatabase::SetCurrentLanguage::original);
 
