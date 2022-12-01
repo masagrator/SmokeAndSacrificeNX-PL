@@ -34,7 +34,8 @@ namespace StringDatabase {
 void SAS_main()
 {
 	TextRegionOffset = (uintptr_t)skyline::utils::getRegionAddress(skyline::utils::region::Text);
-
+	
+	//Offset recovered with il2cppdumper, named as StringDatabase$$SetCurrentLanguage
 	A64HookFunction((void*)(TextRegionOffset + 0x1BC110), reinterpret_cast<void*>(StringDatabase::SetCurrentLanguage::hook), (void**)&StringDatabase::SetCurrentLanguage::original);
 
 }
